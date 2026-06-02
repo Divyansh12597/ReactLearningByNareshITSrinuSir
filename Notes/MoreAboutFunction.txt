@@ -1,0 +1,116 @@
+Q1. in JS which object is the Super object?
+Ans: Window {0:global, window: Window, self:Window, document: document, ..........}
+     What are the predefined variables and method all are defined in the This object.
+     ForExample: setInterval, setTimeOut, localstorage
+                window.setInterval, window.setTimeOut, ........
+
+
+-----------------------------------------------------------------------------
+
+function f1()
+{
+    console.log(this.no)
+}
+f1()
+
+o/p: undefined
+-------------------------
+function f1(x,y)
+{
+    console.log(x+y+this.no)
+}
+f1(10,20)
+
+o/p: NaN -> 10+20+undefined = NaN
+
+------------------------------
+I am calling this function f1(10,20) and i want output 60 how?
+
+i will defined this.no = 30
+then call f1(10,20)
+o/p: 10+20+30 = 60
+
+---------------------
+ There are some other way to do this
+
+ we can call function in four ways:
+
+ function fn()
+ {
+    console.log('This is function')
+ }
+
+1. f() // with function name. o/p: This is function
+2. fn.call() // o/p: This is function
+3. fn.apply() // o/p: This is function
+4. fn.bind()() // o/p: This is function
+
+------
+function fn()
+ {
+    console.log(this)
+ }
+
+if we call function
+f() // o/p: window{}
+
+if we want to change  this object then 
+fn.call({x:10})  --> {x:10}
+fn.apply({x:100}) --> {x:100}
+fn.bind({name:'sachin'})() --> {name:'Sachin'}
+
+------
+Now:
+function f1(x,y)
+{
+    console.log(x+y+this.no)
+}
+
+f1(10,20)               
+o/p: NaN -> 10+20+undefined = NaN
+
+f1.call({no:10},10,20)                          //call(thisArg, ...argAny)
+o/p: 40
+
+f1.apply({no:10}, 10, 20 ) --> Error
+
+f1.apply({no:10}, [10,20])                     //apply(thisArg, ?argArray)
+o/p: 40
+
+f.bind({no:10}, 10, 20)                       // Return actual function
+o/p: f f1(x,y)
+{
+    console.log(x+y+this.no)
+}
+
+f.bind({no:10}, 10, 20)()
+o/p: 40
+
+
+// Using call, apply, bind method we can call a function, by making your own object available like current object(this).
+
+------------------------------------------------------------------------
+                        ------ Arrow function -------
+------------------------------------------------------------------------
+
+Regular function
+function fn()
+{
+    console.log('fn')
+}
+
+fn=()=>{                            //Arrow Function
+    console.log('fn')
+}
+
+fn = () => console.log('fn')
+
+-----------
+function fn(){                      // Regular Function
+    return 10
+}
+
+fn = ()=> { return 10}              // Arrow Function
+fn = ()=> 10                        // Arrow Function
+
+

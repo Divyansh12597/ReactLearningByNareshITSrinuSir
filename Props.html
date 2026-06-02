@@ -1,0 +1,35 @@
+<!-- <script src="react.js"></script>
+<script src="reactDOM.js"></script>
+<script src="babel.js"></script> -->
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  function Box(pr) {
+    return (
+      <div>
+        My Name is {pr.n}, I am from {pr.l}, I am a {pr.children}.
+      </div>
+    );
+  }
+
+  function App() {
+    return (
+      <div>
+        <div>
+          <Box n="Divyansh Singhal" l="Janger" p="software engineer" />
+          <Box n="Harshit Singhal" l="Janger" p="ShopKeeper" />
+          <Box n="Satyarth Singhal" l="Janger">["Student","Engineer"] </Box>
+        </div>
+      </div>
+    );
+  }
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+
+  root.render(<App />);
+</script>

@@ -1,0 +1,30 @@
+//Props :
+
+props is the way to pass data from parent component to child component.
+It is read only. We cannot change the value of props in child component. It is
+immutable. We can pass any type of data as props. It can be string, number,
+boolean, array, object, function etc. We can also pass children as props. It is
+a special prop that is used to pass the content between the opening and closing
+tags of a component. It is also read only. We can access the children prop using
+props.children. It is an array of all the children passed to the component. We
+can also pass multiple children to a component. It will be an array of all the
+children passed to the component. We can also pass a single child to a
+component. It will be a single element instead of an array. We can also pass no
+children to a component. It will be undefined.
+
+
+function App(){
+
+}
+
+When we can pass the data to the component
+    --> While loading coponent we can pass the data to the component
+        <App />
+        <App></App>
+
+How many ways, we can pass the data while loading
+                1. as an attribute format(key, value) --> using key we can get the data.
+                <App n = "" l= "" />
+
+                2. as a childrent --> (no key) --> using children we can get the data.
+                <App n = "">222</App>
