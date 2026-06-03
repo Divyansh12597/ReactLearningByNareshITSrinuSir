@@ -1,0 +1,87 @@
+// Why we wrap multiple html elment in single div in react while retun jsx
+
+---------- var, let, and const -------------
+
+var is accessible with in function
+let is accessible with in scope {}
+const is accessible with in scope {} but it is constant can't change the value
+
+so when we are creating component function we can create like that also
+
+ const Box = (props)=> {
+    return (
+      <div>
+        My Name is {pr.n}, I am from {pr.l}, I am a {pr.children}.
+      </div>
+    );
+  }
+
+// Why we are using const? because some other can not chagne like if we use let/var Box then later we can do box = null that is wrong.
+
+-----------------------------------------------------------------------------------
+                ----------------- Rest Parameter  -----------------
+-----------------------------------------------------------------------------------
+function fn(x,y){
+    console.log(x+y)
+}
+function fn(x,y,z){
+    console.log(x+y+z)
+}
+
+if we want to pass multiple parameter we can use rest parameter. it is array collection of parameter.
+
+function fn(...x){
+    var sum = 0;
+    for(var i=0;i<x.length;i++)
+    {
+        sum = sum+x[i];
+    }
+    console.log(sum);
+}
+
+fn(1,2,3,3) o/p --> 9
+
+-----------------------------------------------------------------------------------
+cost obj ={
+    name:'sachin',
+    runs: 20000,
+    add:{
+        loc:'mumbai',
+        pin:33434
+    },
+    cen:[100,88],
+    isRetired:true
+}
+
+obj.runs o/p ->20000
+
+obj.add.loc o/p -> 'mumbai'
+obj.add.pin o/p -> 33434
+
+here obj.add is common. so we can do like that
+const {loc, pin} = obj.add
+
+loc o/p --> 'mumbai'
+pin o/p --> 33434
+
+------------------------
+
+
+
+in jsx JavaScript related code should we enclosed with and expression {}
+
+rest vs sperad operator
+
+when an variable used in function argument with thee dots(...) then it is rest operator else it is sperad operator
+
+
+//Short Hand Syntax
+
+var n1 = 10
+var n2 = 20
+
+//This is normal object creation
+var obj = {n1:n1, n2:n2}    o/p --> {n1:10, n2:20}
+
+in Short Hand Syntax we can write like that
+var obj = {n1,n2}           o/p --> {n1:10, n2:20}

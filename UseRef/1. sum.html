@@ -1,0 +1,45 @@
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+
+
+    function App() {
+        const n1Ref = React.useRef();
+        const n2Ref = React.useRef();
+        const resultRef = React.useRef();
+
+        function Sum() {
+            const n1 = n1Ref.current.value;
+            const n2 = n2Ref.current.value;
+            const sum = parseInt(n1) + parseInt(n2)
+            resultRef.current.innerText = sum
+
+        }
+
+        return <div>
+            <p>
+                <b>No1:</b><input ref={n1Ref} />
+            </p>
+            <p>
+                <b>No2:</b><input ref={n2Ref} />
+            </p>
+            <p>
+                <button onClick={Sum}>Sum</button>
+
+            </p>
+            <p>
+                <b>Result:</b><span ref={resultRef}></span>
+            </p>
+
+        </div>
+
+    }
+
+    var root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<App />);
+</script>

@@ -113,4 +113,26 @@ function fn(){                      // Regular Function
 fn = ()=> { return 10}              // Arrow Function
 fn = ()=> 10                        // Arrow Function
 
+-----------------
+function fn(){
+    console.log(this)
+}
+
+fn.call({x:100}) = o/p -> {x:100} // Normal function can change
+ 
+// arrow function scope can change
+fn = () => {
+    console.log(this)
+}
+fn.call({x:100}) = o/p -> window
+fn.apply({x:100}) = o/p -> window
+fn.bind({x:100})() = o/p -> window
+
+// By defautl arrow function having lexical scope behaviour. it owns the parent scope. we can't chagne
+the scope of arrow function.
+
+// if you want to change the current context of arrow functions, we should have to change the parent current scope.
+  
+
+
 

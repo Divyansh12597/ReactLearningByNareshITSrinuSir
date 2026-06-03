@@ -1,0 +1,46 @@
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+<script type="text/babel">
+  const App = () => {
+    // debugger;
+    const no = React.useRef();
+    const primeValue = React.useRef();
+
+    const checkPrime = () => {
+      const noValue = no.current.value;
+      var flag;
+      for (var i = 2; i < noValue; i++) {
+        if (noValue % i == 0) {
+          flag = 1;
+          break;
+        } else {
+          flag = 0;
+        }
+      }
+
+      if (flag == 1) {
+        primeValue.current.innerText = "Not a Prime Number";
+      } else {
+        primeValue.current.innerText = "Prime Number";
+        // alert(noValue + "is prime no")
+      }
+    };
+
+    return (
+      <div>
+        <b>No:</b>
+        <input ref={no} />
+        <p>
+          <button onClick={checkPrime}>checkPrime</button>
+          <span ref={primeValue}></span>
+        </p>
+      </div>
+    );
+  };
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>
