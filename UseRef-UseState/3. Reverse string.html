@@ -1,0 +1,46 @@
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+<script type="text/babel">
+  function App() {
+    const Name = React.useRef();
+    const rev = React.useRef();
+ 
+    // Method 1
+    // function Reverse() {
+    //   const Name1 = Name.current.value;
+    //   const rev1 = Name1.split("").reverse().join("");
+    //   rev.current.innerText = rev1;
+    // }
+
+    // Method 2
+    function Reverse() {
+      const Name1 = Name.current.value;
+
+      let reversedName = "";
+
+      for (let i = Name1.length - 1; i >= 0; i--) {
+        reversedName = reversedName + Name1[i];
+      }
+
+      rev.current.innerText = reversedName;
+    }
+
+    return (
+      <div>
+        <b>
+          Enter Name: <input ref={Name} />
+        </b>
+        <p>
+          <button onClick={Reverse}>Reverse Name</button>{" "}
+          <span ref={rev}></span>
+        </p>
+      </div>
+    );
+  }
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

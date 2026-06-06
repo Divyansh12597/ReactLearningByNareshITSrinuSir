@@ -1,0 +1,68 @@
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const App = ()=>{
+
+    const no1 = React.useRef();
+    const no2 = React.useRef();
+
+    function calc(operation){
+
+        const n1 = Number(no1.current.value);
+        const n2 = Number(no2.current.value);
+
+        let result;
+
+        if(operation === "sum"){
+            result = n1 + n2;
+        }
+
+        else if(operation === "sub"){
+            result = n1 - n2;
+        }
+
+        else if(operation === "mul"){
+            result = n1 * n2;
+        }
+
+        else if(operation === "div"){
+            result = n1 / n2;
+        }
+
+        else if(operation === "mod"){
+            result = n1 % n2;
+        }
+
+        alert(result);
+    }
+
+    return <div>
+
+        <p>No1: <input ref={no1}/></p>
+
+        <p>No2: <input ref={no2}/></p>
+
+        <button onClick={()=>calc("sum")}>Sum</button>
+
+        <button onClick={()=>calc("sub")}>Sub</button>
+
+        <button onClick={()=>calc("mul")}>Mul</button>
+
+        <button onClick={()=>calc("div")}>Div</button>
+
+        <button onClick={()=>calc("mod")}>Mod</button>
+
+    </div>
+
+}
+
+var root = ReactDOM.createRoot(document.querySelector("#root"));
+
+root.render(<App/>)
+
+</script>

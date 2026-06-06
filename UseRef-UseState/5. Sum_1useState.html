@@ -11,13 +11,13 @@
     function App() {
         const n1Ref = React.useRef();
         const n2Ref = React.useRef();
-        const resultRef = React.useRef();
+        const[result, setResult] = React.useState(0);  // to under stand deep about useState see notes or lecture 25 of NaresIT
 
         function Sum() {
             const n1 = n1Ref.current.value;
             const n2 = n2Ref.current.value;
             const sum = parseInt(n1) + parseInt(n2)
-            resultRef.current.innerText = sum
+            setResult(sum);
 
         }
 
@@ -33,7 +33,7 @@
 
             </p>
             <p>
-                <b>Result:</b><span ref={resultRef}></span>
+                <b>Result:</b><span >{result}</span>
             </p>
 
         </div>
