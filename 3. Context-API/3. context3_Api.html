@@ -1,0 +1,89 @@
+<!-- If we want to pass the multiple values
+We will create an object of the value and consue them.. see line 57 and 15, 34, 27 -->
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const ctx = React.createContext(); //Create Context
+
+  const I = () => {
+    const ctxData = React.useContext(ctx);
+    return <div>I:{ctxData.name}</div>;
+  };
+  const H = () => {
+    return (
+      <div>
+        H
+        <I />
+      </div>
+    );
+  };
+  const G = () => {
+    const ctxData = React.useContext(ctx);
+    return <div>G:{ctxData['loc']}</div>;
+  };
+  const F = () => {
+    return <div>F</div>;
+  };
+  const E = () => {
+    const ctxData = React.useContext(ctx);
+    return <div>E:{ctxData.runs}</div>;
+  };
+  const D = () => {
+    return (
+      <div>
+        D
+        <E />
+      </div>
+    );
+  };
+  const C = () => {
+    return (
+      <div>
+        C
+        <D />
+      </div>
+    );
+  };
+  const B = () => {
+    return (
+      <div>
+        B
+        <C />
+      </div>
+    );
+  };
+  const A = () => {
+    return <div>A</div>;
+  };
+
+  function App() {
+    const obj = {
+      name:'sachin',
+      runs:20000,
+      loc:'mumbai'
+
+    } //Here we can pass multiple value as an object
+    return (
+      <div>
+        <h1>App</h1>
+
+        <ctx.Provider value={obj}>
+          {/*Provide context to all your components*/}
+          <A />
+          <B />
+          <F />
+          <G />
+          <H />
+        </ctx.Provider>
+      </div>
+    );
+  }
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

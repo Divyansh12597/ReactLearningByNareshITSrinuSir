@@ -5,6 +5,9 @@ Ans: Window {0:global, window: Window, self:Window, document: document, ........
                 window.setInterval, window.setTimeOut, ........
 
 
+q2. What is a callback function?
+Ans: We pass a function as a argument/parameter to another function called callback function.
+
 -----------------------------------------------------------------------------
 
 function f1()

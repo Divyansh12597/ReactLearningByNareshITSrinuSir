@@ -1,0 +1,46 @@
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const A = (props) => {
+    return (
+      <div>
+        <h1>Child:{props.n}</h1>
+      </div>
+    );
+  };
+
+  function App() {
+    const nameRef = React.useRef();
+    // const [input, setInput] = React.useState("");
+    const [param, setParam] = React.useState("");
+    const fchange = (eve) => {
+      const inp = eve.target.value;
+      setInput(inp);
+    };
+
+    const fclick = () => {
+      const name = nameRef.current.value;
+      setParam(name)
+    //   setParam(input);
+    };
+
+    return (
+      <div>
+        <h1>Parent:</h1>
+        {/*<input onChange={fchange} />*/}
+        <input ref = {nameRef}/>
+        <p>
+          <button onClick={fclick}>Pass data from parent to child</button>
+        </p>
+        <A n={param} />  {/* Here we are passing  data into child component*/}
+      </div>
+    );
+  }
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

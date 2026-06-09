@@ -1,0 +1,84 @@
+<!-- If we want to pass the multiple values
+We will create array of the value and consue them using indexing.. see line 57 and 15 -->
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const ctx = React.createContext(); //Create Context
+
+  const I = () => {
+    const ctxData = React.useContext(ctx);
+    return <div>I:{ctxData[0]}</div>;
+  };
+  const H = () => {
+    return (
+      <div>
+        H
+        <I />
+      </div>
+    );
+  };
+  const G = () => {
+    const ctxData = React.useContext(ctx);
+    return <div>G:{ctxData[1]}</div>;
+  };
+  const F = () => {
+    return <div>F</div>;
+  };
+  const E = () => {
+    const ctxData = React.useContext(ctx);
+    return <div>E:{ctxData[2]}</div>;
+  };
+  const D = () => {
+    return (
+      <div>
+        D
+        <E />
+      </div>
+    );
+  };
+  const C = () => {
+    return (
+      <div>
+        C
+        <D />
+      </div>
+    );
+  };
+  const B = () => {
+    return (
+      <div>
+        B
+        <C />
+      </div>
+    );
+  };
+  const A = () => {
+    return <div>A</div>;
+  };
+
+  function App() {
+    const name = ["sachin", "Dhoni", "Kohali"]; //Here we can pass multiple value as an array
+    return (
+      <div>
+        <h1>App</h1>
+
+        <ctx.Provider value={name}>
+          {/*Provide context to all your components*/}
+          <A />
+          <B />
+          <F />
+          <G />
+          <H />
+        </ctx.Provider>
+      </div>
+    );
+  }
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

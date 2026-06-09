@@ -1,0 +1,78 @@
+
+<!-- ----- Short Notes -----
+There are 3 methods method 1, 2, 3 for the setcolor.
+
+ -->
+
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  function App() {
+    const [result, setResult] = React.useState(0); // to under stand deep about useState see notes or lecture 25 of NaresIT
+    const [data, setData] = React.useState({});
+    // const [clr, setClr] = React.useState(""); //Method1 && Method2
+    const [clr, setClr] = React.useState({color:''}) //Method3
+    function Sum() {
+      const { n1, n2 } = data;
+      const sum = parseInt(n1) + parseInt(n2);
+      
+      //Method 1
+
+      /* 
+      if(sum>100){
+        setClr("Green")
+      }
+      else{
+        setClr("Red")
+      }
+      */
+
+      // Method 2
+      // setClr(sum>100?"Green":"Red")
+
+      // Method 3
+      setClr(sum>100?{color:'Green'}:{color:'red'})
+
+      setResult(sum); 
+
+
+
+    }
+
+    const fnChannge = (eve) => {
+      const { id, value } = eve.target;
+      setData({ ...data, [id]: value }); // here we are keeping id in square bracker[] because id is keywork so it can not identified by JS.
+    };
+
+    return (
+      <div>
+        <p>
+          <b>No1:</b>
+          <input id="n1" type="number" onChange={fnChannge} />
+        </p>
+        <p>
+          <b>No2:</b>
+          <input id="n2" type="number" onChange={fnChannge} />
+        </p>
+        <p>
+          <button onClick={() => Sum()}>Sum</button>
+        </p>
+        <div>
+          <p>
+            <b>Result:</b>
+           { /* <h1 style={{ color: clr }}>{result}</h1>  -- Method 1 and Method 2 */ }
+            <h1 style={clr}>{result}</h1> {/* Method 3 */}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>
