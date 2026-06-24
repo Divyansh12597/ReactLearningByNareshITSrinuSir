@@ -1,0 +1,50 @@
+<!-- REMOVED type="module" FROM THESE THREE LINES -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const data = [
+    "Sachin",
+    "Dhoni",
+    "Sourav",
+    "Kohli",
+    "UV",
+    "Dravid",
+    "Panth",
+    "Zaheer",
+    "Lara",
+    "Pointing",
+  ];
+
+  function App() {
+    const [input, setInput] = React.useState("");
+    const [result, setResult] = React.useState(data);
+
+    const fchange = (eve) => {
+      const input = eve.target.value;
+      const filterdata = data.filter((item) =>
+        item.toLowerCase().includes(input.toLowerCase()),
+      );
+      setResult(filterdata);
+      console.log("Fiilter" + result);
+    };
+
+    return (
+      <div>
+        input: <input type="text" onChange={fchange} />
+        {console.log({ input })}
+        <ul>
+          {result.map((ele, ind) => {
+            return <li key = {"li_"+ ind}>{ele}</li>;
+          })}
+        </ul>
+      </div>
+    );
+  }
+
+  const root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

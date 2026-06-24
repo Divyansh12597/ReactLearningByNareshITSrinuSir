@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8" />
+      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+      <!-- Don't use this in production: -->
+      <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+      <style>
+         .board{
+         height: 300px;
+         width: 500px;
+         border: 1px solid red;
+         position: relative;
+         }
+         .baloon{
+         position: absolute;
+         border: 1px solid red;
+         border-radius: 50%;
+         }
+         .arrow{
+         width: 100px;
+         border: 1px solid blue;
+         display: inline-block;
+         position: absolute;
+         }
+         .active-baloon{
+         border: 2px solid green;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="root"></div>
+      <script type="text/babel">
+         const Arrow=(props)=>{
+            const {targetBal,clearTarget,fnSendResult}=props;
+            const [left,setLeft]=React.useState(0);
+            const [top,setTop]=React.useState(0);
+            const [isTargetShooted,setIsTargetShooted]=React.useState();
+            const fnMoveArrowLeft=(moveLeft,isCorrectHit)=>{
+               const interval=window.setInterval(()=>{
+                    setLeft((val)=>{
+                     if(val==moveLeft){
+                        clearInterval(interval);
+                        setTop(0);
+                        if(isCorrectHit){
+                           targetBal.style.display='none';
+                        }
+                        setIsTargetShooted(isCorrectHit)
+                        return 0;
+                     }
+                       return val+1
+         
+                    })
+                    
+               },20);
+            }
+            const handleKeyUp = (eve) => {
+               if(eve.keyCode == 38){
+                     setTop((val)=>{
+                        if(val==0)return 0;
+                        return val-5
+                     })
+                  }
+                  if(eve.keyCode == 40){
+                     setTop((val)=>{
+                        if(val==500)return 500
+                        return val+5
+                     })
+                  }
+         
+                  if(eve.keyCode == 13){
+                        if(!targetBal){
+                           alert('Please select target baloon');
+                           return;
+                        }
+                        const {offsetLeft,offsetTop,offsetHeight}=targetBal
+                        if(top > offsetTop && top <(offsetTop+offsetHeight)){
+                           fnMoveArrowLeft(offsetLeft-100,true);
+                        }else{
+                           fnMoveArrowLeft(400,false);
+                        }
+                  }
+            };
+         
+            React.useEffect(() => {
+               window.addEventListener('keyup', handleKeyUp);
+               return () => {
+                  window.removeEventListener('keyup', handleKeyUp);
+               };
+            }, [targetBal,top,left]);
+            
+            React.useEffect(()=>{
+               if(isTargetShooted != undefined){
+               if(isTargetShooted){
+                  clearTarget();
+               }
+               setIsTargetShooted(undefined);
+               fnSendResult(isTargetShooted)
+            }
+            },[isTargetShooted])
+            return <div className="arrow" style={{left,top}}></div>
+         }
+         const Baloon=(props)=>{
+            const {s,l,t,id,fnBalClick,activeBal}=props;
+           
+            return <div id={id} onClick={fnBalClick} className={`baloon ${activeBal===id && 'active-baloon'}`} style={{width:s,height:s,left:l,top:t}}></div>
+         }
+         const Board=({fnSendResult})=>{
+            const [targetBal,setTargetBal]=React.useState();
+            const [activeBal,setActiveBal]=React.useState();
+            const fnBalClick=(eve)=>{
+               setTargetBal(eve.target)
+               setActiveBal(eve.target.id);
+            }
+            const clearTarget=()=>{
+               setTargetBal()
+               setActiveBal();
+            }
+             return <div className="board">
+                     <Arrow fnSendResult={fnSendResult} targetBal={targetBal} clearTarget={clearTarget} />
+                     <Baloon activeBal={activeBal} id="bal1" s="40px" l="300px" t="50px" fnBalClick={fnBalClick} />
+                     <Baloon activeBal={activeBal} id="bal2" s="70px" l="400px" t="100px" fnBalClick={fnBalClick} />
+                     <Baloon activeBal={activeBal} id="bal3" s="50px" l="350px" t="200px" fnBalClick={fnBalClick} />
+                  </div>
+         }
+         const Score=({yourScore,chancesLeft})=>{
+            return <div>
+                  <h3>Your score  : {yourScore}</h3>
+                  <h4>Chances left : {chancesLeft}</h4>
+               </div>
+         }
+         const App=()=>{
+              const [yourScore,setYourScore]=React.useState(0)
+              const [chancesLeft,setChancesLeft]=React.useState(2)
+         
+              const fnSendResult=(bool)=>{
+                  if(bool){
+                     let score=yourScore+1
+                     setYourScore(score)
+                     if(score==3){
+                     setTimeout(()=>{
+                        window.location.reload()
+                     },2000)
+                  }
+                  }else{
+                     if(chancesLeft==0){
+                        window.location.reload()
+                     }
+                     setChancesLeft(chancesLeft-1);
+                  }
+              }
+             return <div>
+                   <Board fnSendResult={fnSendResult} />
+                   <Score yourScore={yourScore} chancesLeft={chancesLeft} />
+                 </div>
+           }
+         
+           const container = document.getElementById('root');
+           const root = ReactDOM.createRoot(container);
+           root.render(<App />);
+         
+      </script>
+     
+   </body>
+</html>

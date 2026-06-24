@@ -1,0 +1,61 @@
+<!-- REMOVED type="module" FROM THESE THREE LINES -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+<style>
+  .board {
+    width: 500px;
+    height: 300px;
+    border: 1px solid red;
+
+    position: relative;
+  }
+
+  .arrow {
+    width: 100px;
+    border: 2px solid blue;
+    display: inline-block;
+    position: absolute;
+    top: 130px;
+    /* left: 0px; */
+  }
+
+  .wall {
+    display: inline-block;
+    height: 250px;
+    border: 1px solid black;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+  }
+</style>
+
+<script type="text/babel">
+  function App() {
+    const [left, setLeft] = React.useState(0);
+    const fClick = () => {
+      const intervalId = setInterval(() => {
+        setLeft((val) => {
+          if (val == 370) {
+            clearInterval(intervalId);
+          }
+          return val + 1;
+        });
+      }, 20);
+    };
+    return (
+      <div>
+        <div className="board">
+          <div style={{ left: left }} className="arrow"></div>
+          <div className="wall"></div>
+        </div>
+        <button onClick={fClick}>click</button>
+      </div>
+    );
+  }
+
+  const root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

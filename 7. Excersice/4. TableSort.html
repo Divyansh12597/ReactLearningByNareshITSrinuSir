@@ -1,0 +1,72 @@
+<!-- REMOVED type="module" FROM THESE THREE LINES -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+    function App() {
+        const players = [
+            {
+                name: "Sachin",
+                runs: 20000,
+                retiredOn: "03-10-2010",
+            },
+            {
+                name: "Pointing",
+                runs: 16000,
+                retiredOn: "01-01-2015",
+            },
+            {
+                name: "Lara",
+                runs: 19000,
+                retiredOn: "02-07-2005",
+            },
+        ];
+        const [data, setData] = React.useState(players);
+        const {name, runs, retiredOn} = players; 
+
+        const fClick = (e) => {
+            console.log(e.target.id)
+            if (e.target.id == "name") {
+                
+                name.sort((a, b) => a - b);
+                console.log(name);
+
+            }
+
+
+        }
+
+        return (
+            <div>
+                <h1>Players</h1>
+                <table border="1px">
+                    <thead onClick={fClick}>
+                        <tr>
+                            <th id="name">Name</th>
+                            <th id="runs">Runs</th>
+                            <th id="retiredOn">Retired On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((obj, index) => {
+                            const { name, runs, retiredOn } = obj;
+                            return (
+                                <tr key={"tr" + index}>
+                                    <td>{name}</td>
+                                    <td>{runs}</td>
+                                    <td>{retiredOn}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<App />);
+</script>

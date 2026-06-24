@@ -1,0 +1,45 @@
+<!-- REMOVED type="module" FROM THESE THREE LINES -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  function App() {
+    const name = ["Sachin", "Dhoni", "Kohli", "Divyansh"];
+
+    return (
+      <div>
+        <ol>
+          {name.map((ele, ind, oa) => {
+            return <li>{ele}</li>;
+          })}
+        </ol>
+
+        <h1>Players in table</h1>
+        <table border="1">
+          <thead>
+            <tr>
+              <th>S.N.</th>
+              <th>Player Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {name.map((ele, ind, oa) => {
+              return (
+                <tr>
+                  <td>{ind + 1}</td>
+                  <td>{ele}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  const root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

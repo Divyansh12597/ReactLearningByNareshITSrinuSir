@@ -1,0 +1,55 @@
+<!-- REMOVED type="module" FROM THESE THREE LINES -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  function App() {
+    const [input, setInput] = React.useState("");
+    const [data, setdata] = React.useState([]);
+
+    // this is for keyword button
+    const fKeyDown = (e) => {
+    if (e.key === "Enter") {
+        fClick();
+    }
+};
+
+
+
+    const fChange = (e) => {
+      setInput(e.target.value);
+    };
+
+    const fClick = () => {
+        if(!data.includes(input)){
+            setdata([...data, input]);
+            setInput("")
+        }
+        else{
+            alert("already exist")
+            setInput("")
+        }
+
+    };
+
+    return (
+      <div>
+        input: <input type="text" value = {input} onChange={fChange} onKeyDown={fKeyDown} />
+        <p>
+          <button onClick={fClick}>Add Item</button>
+        </p>
+        <ol>
+          {data.map((ele, ind, oa) => {
+            return <li key={"li_" + ele}>{ele}</li>;
+          })}
+        </ol>
+      </div>
+    );
+  }
+
+  const root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>

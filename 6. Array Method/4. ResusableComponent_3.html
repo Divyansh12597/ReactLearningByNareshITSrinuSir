@@ -1,0 +1,58 @@
+<!-- REMOVED type="module" FROM THESE THREE LINES -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const List = (prop) => {
+    const {data, heading} = prop       
+    return (
+      <div>
+        <h1>{heading}</h1>
+        <ol>
+            {data.map((ele, ind, oa) => {
+                return <li key = {"li_"+ind }>{ele}</li>
+            })}
+        </ol>
+        
+      </div>
+    );
+  };
+  function App() {
+    const listArr = [
+      {
+        heading : "Players", 
+        data : ["Sachin", "Dhoni", "Kohli", "Divyansh"]
+
+      },
+      {
+        heading : "Students", 
+        data : ["s1", "s2", "s3", "s4", "s5"]
+      },
+      {
+        heading : "faculty", 
+        data : ["s1", "s2", "s3", "s4", "s5"]
+      }
+    ]
+
+
+    return (
+      <div>
+        {
+          listArr.map((ele, ind, oa) => {
+            return <List key = {"List_"+ind} data = {ele.data} heading = {ele.heading} />
+            //  return <List key = {"List_"+ind}  {...ele} /> // This is the another way using spread operator.
+
+          })
+        }
+       
+       
+      </div>
+    );
+  }
+
+  const root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>
