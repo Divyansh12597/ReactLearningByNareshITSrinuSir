@@ -1,0 +1,39 @@
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const Child = () => {
+
+    React.useEffect(() => {
+        return ()=> {
+            console.log('I am going to unmount...')
+        }
+    }, [])
+
+    return (
+      <div>
+        <h1>Child Component</h1>
+      </div>
+    );
+  };
+
+  function App() { useEffect     (true);
+
+    const fChange = (eve) => {
+      setCheck(() => eve.target.checked);
+    };
+    return (
+      <div>
+        <h1>App Component</h1>
+        <input type="checkbox" checked={check} onChange={fChange} />
+        {check && <Child />}
+      </div>
+    );
+  }
+
+  var root = ReactDOM.createRoot(document.querySelector("#root"));
+  root.render(<App />);
+</script>
